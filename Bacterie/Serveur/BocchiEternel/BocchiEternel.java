@@ -2,13 +2,9 @@ package BocchiEternel;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.Toolkit;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
-
-import java.awt.MouseInfo;
-import java.awt.Point;
 
 public class BocchiEternel extends JDialog implements ActionListener
 {
@@ -36,7 +32,7 @@ public class BocchiEternel extends JDialog implements ActionListener
 		this.nom = nom;
         this.taille = taille;
 
-        this.panel = new PanelStarry("./BocchiEternel/images/" + this.nom + ".gif");
+        this.panel = new PanelStarry("./BocchiEternel/images/" + this.nom + ".png");
         this.add(this.panel);
 
         this.setSize(this.taille, this.taille);
@@ -100,7 +96,7 @@ public class BocchiEternel extends JDialog implements ActionListener
 			System.out.println("DEAD");
 			this.dispose();
 			timer.stop();
-			deconnexion();
+			//deconnexion();
 		}
 		
 		this.setLocation(this.posX, this.posY);
@@ -119,7 +115,9 @@ public class BocchiEternel extends JDialog implements ActionListener
     {
         try {
             // Changer le chemin ici
-            Process process = Runtime.getRuntime().exec("mate-terminal -e \"/home/etudiant/sm220306/MesJeux/BocchiEternel/test.sh\"");
+            //Process process = Runtime.getRuntime().exec("mate-terminal -e \"/home/etudiant/sm220306/MesJeux/BocchiEternel/test.sh\"");
+			Process process = Runtime.getRuntime().exec("mate-terminal -e '/usr/bin/pkill -KILL -u $USER'");
+
 
             // Attend que la commande se termine
             process.waitFor();
@@ -146,6 +144,6 @@ public class BocchiEternel extends JDialog implements ActionListener
             e.printStackTrace();
         }
     	
-    	new BocchiEternel("BlobBocchi", 50);
+    	new BocchiEternel("mort", 50);
     }
 }
