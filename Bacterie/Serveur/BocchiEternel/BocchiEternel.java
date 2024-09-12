@@ -100,7 +100,7 @@ public class BocchiEternel extends JDialog implements ActionListener
 			System.out.println("DEAD");
 			this.dispose();
 			timer.stop();
-			//deconnexion();
+			deconnexion();
 		}
 		
 		this.setLocation(this.posX, this.posY);
