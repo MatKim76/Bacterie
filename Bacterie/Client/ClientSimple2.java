@@ -5,7 +5,7 @@ import java.awt.Point;
 
 public class ClientSimple2
 {
-    private static int portNumber = 9000;
+    private static int portNumber = 12121;
     private volatile boolean isRunning = true;
     private Socket toServer;
     private PrintWriter out;

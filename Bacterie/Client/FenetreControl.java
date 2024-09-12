@@ -23,10 +23,10 @@ public class FenetreControl extends JFrame implements ActionListener, KeyListene
     private boolean isTracking = false;
     private ClientSimple2 clientSouris;
 	
-	public FenetreControl( )
+	public FenetreControl( String serv)
 	{
 		//création du client
-		this.clientSouris = new ClientSimple2("localhost");
+		this.clientSouris = new ClientSimple2(serv);
 		
 		//para de base de la frame
 		this.setSize(300,300);
@@ -166,7 +166,7 @@ public class FenetreControl extends JFrame implements ActionListener, KeyListene
 	
 	public static void main(String[] a)
 	{
-		new FenetreControl();
+		new FenetreControl("localhost");
 	}
 }
 

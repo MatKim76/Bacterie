@@ -14,7 +14,7 @@ import FauxFreeze.*;
 
 public class ServeurInfo
 {
-	private static int portNumber = 9000;
+	private static int portNumber = 12121;
 	private static ArrayList<String> list;
 	private static ArrayList<String> titre;
 	
@@ -77,6 +77,7 @@ public class ServeurInfo
 						
 						if(message.contains("clickD"))
 						{
+							System.out.println("d");
 							robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
 							robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
 						}
