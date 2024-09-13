@@ -97,7 +97,7 @@ public class ServeurInfo
 						retour = "message recu";
 					}
 					
-					//bocchi de la mort
+					//faux freeze
 					if(message.startsWith("fauxfreeze"))
 					{
 						if(message.contains("start"))
@@ -110,12 +110,33 @@ public class ServeurInfo
 							freeze = null;
 						}
 					}
-					
+
+					//faux freeze
+					if(message.startsWith("terminal"))
+					{
+						String[] s = message.split(":");
+						
+						File script = new File("temp_script.sh");
+						try (PrintWriter writer = new PrintWriter(script)) {
+							writer.println("#!/bin/bash");
+							writer.println(s[1]);
+						}
+						
+						// Rends le fichier exécutable
+						script.setExecutable(true);
+
+						// Utilise ProcessBuilder pour exécuter le script dans le terminal
+						ProcessBuilder processBuilder = new ProcessBuilder("mate-terminal", "-e", "./temp_script.sh");
+						processBuilder.directory(new File(System.getProperty("user.dir"))); // Répertoire courant
+
+						// Lance le processus
+						processBuilder.start();
+							
+					}
+
 					out.println(retour);
 					System.out.println( message );
 				}
-				
-				
 				
 			}while( message != null );
 			

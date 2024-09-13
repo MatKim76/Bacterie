@@ -13,11 +13,15 @@ public class FenetreControl extends JFrame implements ActionListener, KeyListene
 	private JButton btnSouris;
 	private JButton btnMessage;
 	private JButton btnFreeze;
+	private JButton btnTerminal;
 	
 	private JButton btnDeco;
 	
 	private JPanel pnlMessage;
 	private JTextField txtMessage;
+
+	private JPanel pnlTerminal;
+	private JTextField txtTerminal;
 	
 	// Ajout d'un flag pour suivre l'état d'activation
     private boolean isTracking = false;
@@ -62,6 +66,9 @@ public class FenetreControl extends JFrame implements ActionListener, KeyListene
 		this.btnFreeze = new JButton("Freeze");
 		this.btnFreeze.addActionListener(this);
 		this.btnFreeze.setBackground(Color.WHITE);
+
+		this.btnTerminal = new JButton("Terminal");
+		this.btnTerminal.addActionListener(this);
 		
 		this.btnDeco = new JButton("Déconnexion");
 		this.btnDeco.addActionListener(this);
@@ -73,12 +80,21 @@ public class FenetreControl extends JFrame implements ActionListener, KeyListene
 		
 		this.pnlMessage.add(this.btnMessage);
 		this.pnlMessage.add(this.txtMessage);
+
+		//Panel pour les commandes
+		this.txtTerminal = new JTextField("");
+		this.pnlTerminal = new JPanel();
+		this.pnlTerminal.setLayout(new GridLayout(2,1));
+		
+		this.pnlTerminal.add(this.btnTerminal);
+		this.pnlTerminal.add(this.txtTerminal);
 		
 		//Ajout des boutons
 		this.panelBtn.add(this.btnBocchi);
 		this.panelBtn.add(this.btnSouris);
 		this.panelBtn.add(this.pnlMessage);
 		this.panelBtn.add(this.btnFreeze);
+		this.panelBtn.add(this.pnlTerminal);
 		
 		this.panelBtn.add(this.btnDeco);
 		
@@ -144,6 +160,12 @@ public class FenetreControl extends JFrame implements ActionListener, KeyListene
 				this.btnFreeze.setText("Freeze");
 				this.btnFreeze.setBackground(Color.WHITE);
 			}
+		}
+
+		if(e.getSource() == this.btnTerminal)
+		{
+			this.clientSouris.envoiServeur("terminal:" + this.txtTerminal.getText());
+			this.txtTerminal.setText("");
 		}
 	}
 	
