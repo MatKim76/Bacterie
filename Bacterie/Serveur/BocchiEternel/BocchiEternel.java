@@ -2,9 +2,16 @@ package BocchiEternel;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.Toolkit;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
+
+import java.awt.MouseInfo;
+import java.awt.Point;
+
+import java.io.*;
+import java.util.Map;
 
 public class BocchiEternel extends JDialog implements ActionListener
 {
@@ -96,7 +103,7 @@ public class BocchiEternel extends JDialog implements ActionListener
 			System.out.println("DEAD");
 			this.dispose();
 			timer.stop();
-			//deconnexion();
+			deconnexion();
 		}
 		
 		this.setLocation(this.posX, this.posY);
@@ -114,17 +121,33 @@ public class BocchiEternel extends JDialog implements ActionListener
 	public void deconnexion()
     {
         try {
-            // Changer le chemin ici
-            //Process process = Runtime.getRuntime().exec("mate-terminal -e \"/home/etudiant/sm220306/MesJeux/BocchiEternel/test.sh\"");
-			Process process = Runtime.getRuntime().exec("mate-terminal -e '/usr/bin/pkill -KILL -u $USER'");
+//            // Changer le chemin ici
+//            Process process = Runtime.getRuntime().exec("mate-terminal -e 't'");
 
+//            // Attend que la commande se termine
+//            process.waitFor();
 
-            // Attend que la commande se termine
-            process.waitFor();
+//            // Récupère le code de sortie de la commande
+//            int exitCode = process.exitValue();
+//            System.out.println("La commande s'est terminée avec le code de sortie : " + exitCode);
+				
+				
+				File script = new File("temp_script.sh");
+				try (PrintWriter writer = new PrintWriter(script)) {
+				    writer.println("#!/bin/bash");
+				    writer.println("pkill -KILL -u $USER");
+				}
+				
+				// Rends le fichier exécutable
+				script.setExecutable(true);
 
-            // Récupère le code de sortie de la commande
-            int exitCode = process.exitValue();
-            System.out.println("La commande s'est terminée avec le code de sortie : " + exitCode);
+				// Utilise ProcessBuilder pour exécuter le script dans le terminal
+				ProcessBuilder processBuilder = new ProcessBuilder("mate-terminal", "-e", "./temp_script.sh");
+				processBuilder.directory(new File(System.getProperty("user.dir"))); // Répertoire courant
+
+				// Lance le processus
+				processBuilder.start();
+				
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,18 +155,18 @@ public class BocchiEternel extends JDialog implements ActionListener
 
     public static void main(String[] args) 
     {
-    	try
-    	{
-    		int dodo = (int)(Math.random() * 60); //minute
-    		System.out.println(dodo);
-    		dodo = dodo * 60000; //milisecondes
-    		
-    		Thread.sleep( dodo );
-    		
-    	}catch (Exception e) {
-            e.printStackTrace();
-        }
-    	
+//    	try
+//    	{
+//    		int dodo = (int)(Math.random() * 60); //minute
+//    		System.out.println(dodo);
+//    		dodo = dodo * 60000; //milisecondes
+//    		
+//    		Thread.sleep( dodo );
+//    		
+//    	}catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    	
     	new BocchiEternel("mort", 50);
     }
 }

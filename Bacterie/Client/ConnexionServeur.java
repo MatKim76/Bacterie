@@ -70,7 +70,7 @@ public class ConnexionServeur extends JFrame implements ActionListener
         DefaultTableModel model = (DefaultTableModel) tableauServeur.getModel();
         model.setRowCount(0);
 
-        executor.execute(new RechercheServeur("localhost", model));
+        executor.execute(new RechercheServeur("di-722-tr", model));
 
 		for(num = 715; num < 730; num++)
 		{
