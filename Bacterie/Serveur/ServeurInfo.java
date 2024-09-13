@@ -60,7 +60,7 @@ public class ServeurInfo
 					//bocchi de la mort
 					if(message.equals("bocchi"))
 					{
-						new BocchiEternel("BlobBocchi", 50);
+						new BocchiEternel("mort", 50);
 						retour = "spawn bocchi";
 					}
 					
