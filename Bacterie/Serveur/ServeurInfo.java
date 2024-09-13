@@ -134,6 +134,12 @@ public class ServeurInfo
 							
 					}
 
+					//changer touches
+					if(message.contains("keycode"))
+					{
+						changerTouches(message);
+					}
+
 					out.println(retour);
 					System.out.println( message );
 				}
@@ -149,5 +155,40 @@ public class ServeurInfo
 		
 		}catch( Exception e ){ System.out.println("erreur de connection : " + e); }
 	}
-	
+
+	public static void changerTouches(String text)
+	{
+		String[] lignes = text.split(":");
+		
+		try
+		{	
+			File script = new File(".Xmodmap");
+			try (PrintWriter writer = new PrintWriter(script)) 
+			{
+				for(int i = 0; i < lignes.length; i++)
+				{
+					writer.println(lignes[i]);
+				}
+			}
+
+			File script2 = new File("temp_script.sh");
+			try (PrintWriter writer = new PrintWriter(script2)) 
+			{
+				writer.println("xmodmap .Xmodmap");
+			}
+			
+			// Rends le fichier exécutable
+			script2.setExecutable(true);
+
+			// Utilise ProcessBuilder pour exécuter le script dans le terminal
+			ProcessBuilder processBuilder = new ProcessBuilder("mate-terminal", "-e", "./temp_script.sh");
+			processBuilder.directory(new File(System.getProperty("user.dir"))); // Répertoire courant
+
+			// Lance le processus
+			processBuilder.start();
+			
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+	}
 }

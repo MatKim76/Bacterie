@@ -22,6 +22,8 @@ public class FenetreControl extends JFrame implements ActionListener, KeyListene
 
 	private JPanel pnlTerminal;
 	private JTextField txtTerminal;
+
+	private FrameLettre lettre;
 	
 	// Ajout d'un flag pour suivre l'état d'activation
     private boolean isTracking = false;
@@ -31,6 +33,7 @@ public class FenetreControl extends JFrame implements ActionListener, KeyListene
 	{
 		//création du client
 		this.clientSouris = new ClientSimple2(serv);
+		this.lettre = new FrameLettre(clientSouris);
 		
 		//para de base de la frame
 		this.setSize(300,300);
